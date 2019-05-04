@@ -150,6 +150,33 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/CiEmulator.dir/build.make CMakeFiles/CiEmulator.dir/main.c.s
 .PHONY : main.c.s
 
+src/Validators/validator.o: src/Validators/validator.c.o
+
+.PHONY : src/Validators/validator.o
+
+# target to build an object file
+src/Validators/validator.c.o:
+	$(MAKE) -f CMakeFiles/CiEmulator.dir/build.make CMakeFiles/CiEmulator.dir/src/Validators/validator.c.o
+.PHONY : src/Validators/validator.c.o
+
+src/Validators/validator.i: src/Validators/validator.c.i
+
+.PHONY : src/Validators/validator.i
+
+# target to preprocess a source file
+src/Validators/validator.c.i:
+	$(MAKE) -f CMakeFiles/CiEmulator.dir/build.make CMakeFiles/CiEmulator.dir/src/Validators/validator.c.i
+.PHONY : src/Validators/validator.c.i
+
+src/Validators/validator.s: src/Validators/validator.c.s
+
+.PHONY : src/Validators/validator.s
+
+# target to generate assembly for a file
+src/Validators/validator.c.s:
+	$(MAKE) -f CMakeFiles/CiEmulator.dir/build.make CMakeFiles/CiEmulator.dir/src/Validators/validator.c.s
+.PHONY : src/Validators/validator.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +189,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/Validators/validator.o"
+	@echo "... src/Validators/validator.i"
+	@echo "... src/Validators/validator.s"
 .PHONY : help
 
 

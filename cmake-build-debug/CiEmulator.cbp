@@ -79,6 +79,12 @@
 		<Unit filename="/home/victor/Alpha/Faculdade/Estrutura de Dados/CiEmulator/main.c">
 			<Option target="CiEmulator"/>
 		</Unit>
+		<Unit filename="/home/victor/Alpha/Faculdade/Estrutura de Dados/CiEmulator/src/Validators/validator.c">
+			<Option target="CiEmulator"/>
+		</Unit>
+		<Unit filename="/home/victor/Alpha/Faculdade/Estrutura de Dados/CiEmulator/src/Validators/validator.h">
+			<Option target="CiEmulator"/>
+		</Unit>
 		<Unit filename="/home/victor/Alpha/Faculdade/Estrutura de Dados/CiEmulator/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

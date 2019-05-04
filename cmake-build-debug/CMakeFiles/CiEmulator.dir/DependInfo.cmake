@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/home/victor/Alpha/Faculdade/Estrutura de Dados/CiEmulator/main.c" "/home/victor/Alpha/Faculdade/Estrutura de Dados/CiEmulator/cmake-build-debug/CMakeFiles/CiEmulator.dir/main.c.o"
+  "/home/victor/Alpha/Faculdade/Estrutura de Dados/CiEmulator/src/Validators/validator.c" "/home/victor/Alpha/Faculdade/Estrutura de Dados/CiEmulator/cmake-build-debug/CMakeFiles/CiEmulator.dir/src/Validators/validator.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

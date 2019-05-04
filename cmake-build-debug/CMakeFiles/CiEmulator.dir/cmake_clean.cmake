@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/CiEmulator.dir/main.c.o"
+  "CMakeFiles/CiEmulator.dir/src/Validators/validator.c.o"
   "CiEmulator.pdb"
   "CiEmulator"
 )
