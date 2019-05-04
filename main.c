@@ -17,6 +17,7 @@ void insert(int i, char option){
     p = malloc(sizeof(TruthTable));
 
     !p ? exit(-1) : NULL;
+
     switch (option){
         case 'j':
             p->j = i;
@@ -39,7 +40,7 @@ void insert(int i, char option){
 void showList(){
     int i = 0;
     for(p = prim; p != NULL; p = p->next){
-        printf("%d|%d\n________\n", i+1, p->q);
+        printf("%d -> %d\n", i+1, p->q);
         i++;
     }
 }
@@ -48,23 +49,19 @@ int main() {
     int value = 0, i = 0;
     printf("==> Entre com a sequencia de Q\n");
     printf("Para sair digite: 11\n\n");
-    for(ever) {
-        do{
-            printf("%d => ", i+1);
-            scanf("%d", &value);
-            if(value == 11){
-                printf("%d\n", i%2);
-                if(!(i%2)) break; else printf("Insira mais um valor\n"); //Quebrando o laço inicial
-            }
-        } while(value != 0 && value != 1);
-        i++;
-
+    do{
+        printf("%d => ", i+1);
+        scanf("%d", &value);
         if(value == 11){
-            printf("Saindo...");
-            break;
-        } //Interronpendo segundo laço
-        insert(value, 'q');
-    }
+            printf("%d\n", i%2);
+            if(!(i%2)) break; else printf("Insira mais um valor\n"); //Quebrando o laço inicial
+        } else {
+            i++;
+            insert(value, 'q');
+        }
+    } while(value != 0 && value != 1);
+
+
 
     showList();
     return 0;
