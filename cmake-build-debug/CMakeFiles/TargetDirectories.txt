@@ -1,0 +1,3 @@
+/home/victor/Alpha/Faculdade/Estrutura de Dados/CiEmulator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/victor/Alpha/Faculdade/Estrutura de Dados/CiEmulator/cmake-build-debug/CMakeFiles/CiEmulator.dir
+/home/victor/Alpha/Faculdade/Estrutura de Dados/CiEmulator/cmake-build-debug/CMakeFiles/edit_cache.dir
