@@ -4,24 +4,33 @@
 
 #define ever ;; //Just for Fun
 
+/*
+*   ==>> Remember <<===
+*    char *point => Return the value
+*    char &pont => Return the memory address
+*    char point => Return all data on that
+*/
+
 typedef struct truthTable{
-    char j;
-    char k;
-    int q;
+    char *j;
+    char *k;
+    char *q;
+    int count;
     struct truthTable *next;
 } TruthTable;
 
 TruthTable *prim= NULL, *p, *q;
 
-void insert(int i){
+void insert(char *word){
     p = malloc(sizeof(TruthTable));
     !p ? exit(-1) : NULL;
-    p->q = i;
+    p->q = word;
     p->next = NULL;
-    if(prim != NULL) q->next = p; else prim = p;
+    if(prim != NULL) q->next = p; else prim = p; //Performance
     q = p;
 }
 
+//This function is called after the sorting
 void equalsBits(TruthTable *pointer){
     if(pointer->q == 1){
         pointer->j = 'X';
@@ -31,7 +40,7 @@ void equalsBits(TruthTable *pointer){
         pointer->k = 'X';
     }
 }
-
+//This 2
 void differentBits(TruthTable *pointer){
     if(pointer->q == 1){
         pointer->j = 'X';
@@ -47,6 +56,8 @@ void differentBits(TruthTable *pointer){
  * Segundo a soma do qn e qn+1, vai ser redirecionado para funcoes
  * que irao determinar o j e k desses casos
  */
+
+//Think a better way to resolve this point
 void sorting(TruthTable *pointer){
     if (pointer->next) {
         if ((pointer->q + pointer->next->q) == 1) {
@@ -63,6 +74,7 @@ void sorting(TruthTable *pointer){
     }
 }
 
+//This too
 void showTable(TruthTable *pointer){
     int i = 0;
     printf("\n======= Resultado =======\n");
@@ -77,19 +89,20 @@ void showTable(TruthTable *pointer){
 }
 
 int main() {
-    int value = 0, i = 0;
+    int i = 0;
+    char *value = malloc(sizeof(char)*4);
 
     /*
      * Coletando os valores de Qn
      */
     printf("==> Entre com a sequencia de Q\n");
-    printf("Para sair digite: 11\n\n");
+    printf("Para sair digite: 1111\n\n");
     for(ever) {
-        if(value == 11) break;
+        if(value == 1111) break;
         do {
             printf("%d => ", i + 1);
             scanf("%d", &value);
-            if (value == 11){
+            if (value == 1111){
                 if(i % 2) {
                     printf("Insira mais um valor e depois digite 11 para sair\n");
                 } else {
