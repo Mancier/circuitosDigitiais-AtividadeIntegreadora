@@ -88,36 +88,59 @@ void showTable(TruthTable *pointer){
     printf("\t%d -> %d || %c | %c\n", i+1, pointer->q, pointer->j, pointer->k);
 }
 
+//I dont know how, but i assure works so dont change nothing
+char *convertToBinary(int value){
+    int c, d, count;
+    char *pointer;
+   
+   count = 0;
+   pointer = (char*)malloc(3);
+
+   if (pointer == NULL)
+      exit(EXIT_FAILURE);
+     
+   for (c = 4 ; c >= 0 ; c--)
+   {
+      d = value >> c;
+
+      printf("Convertion: %d \n", d);
+     
+      if (d & 1){
+         *(pointer+count) = 1 + '0';
+      }
+      else {
+         *(pointer+count) = 0 + '0';
+      }
+      count++;
+   }
+   *(pointer+count) = '\0';
+   
+   return  pointer;
+}
+
 int main() {
-    int i = 0;
-    char *value = malloc(sizeof(char)*4);
+    int value = 0;
+    char *wordBinary = malloc(sizeof(char)*4);
 
     /*
      * Coletando os valores de Qn
      */
-    printf("==> Entre com a sequencia de Q\n");
-    printf("Para sair digite: 1111\n\n");
-    for(ever) {
-        if(value == 1111) break;
-        do {
-            printf("%d => ", i + 1);
-            scanf("%d", &value);
-            if (value == 1111){
-                if(i % 2) {
-                    printf("Insira mais um valor e depois digite 11 para sair\n");
-                } else {
-                    break;
-                }
-            }
-            if(value != 0 && value != 1){
-                printf("->> Valor Invalido!\nInsira um novo valor\n");
-            }
-            else {
-                i++;
-                insert(value);
-            }
-        } while (value != 0 && value != 1);
-    }
+    printf("==> Para mostrar o mapa, entre o valor correspondente a linha\n");
+    printf("Para sair digite: 16\n");
+    printf("Linha: ");
+    do
+    {
+        scanf("%d", &value);
+        if(!(value > 16 || value < 0)){
+            insert(convertionToBinary(value));
+            printf("Insira um novo valor: ");
+        } else {
+            printf("Valor Inválido, digite novamente um valor entre 0 e 15\n");
+            printf("Insira um novo valor: ");
+        }
+
+    } while (value != 16);
+    
     // ======= Fim =======
 
     /*
