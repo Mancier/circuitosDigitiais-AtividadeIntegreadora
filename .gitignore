@@ -1,6 +1,6 @@
 cmake-build-debug/
 .idea/
-.code/
+.vscode/
 
 # Prerequisites
 *.d
