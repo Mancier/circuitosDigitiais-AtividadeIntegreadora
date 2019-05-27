@@ -32,7 +32,7 @@ void insert(char *word){
 
 //This function is called after the sorting
 void equalsBits(TruthTable *pointer){
-    if(pointer->q == 1){
+    if(pointer->q == '1'){
         pointer->j = 'X';
         pointer->k = '0';
     } else {
@@ -42,7 +42,7 @@ void equalsBits(TruthTable *pointer){
 }
 //This 2
 void differentBits(TruthTable *pointer){
-    if(pointer->q == 1){
+    if(pointer->q == '1'){
         pointer->j = 'X';
         pointer->k = '1';
     } else {
@@ -58,19 +58,15 @@ void differentBits(TruthTable *pointer){
  */
 
 //Think a better way to resolve this point
-void sorting(TruthTable *pointer){
-    if (pointer->next) {
-        if ((pointer->q + pointer->next->q) == 1) {
-            differentBits(pointer);
+void sorting(TruthTable *parallel){
+     //Runnig in the string
+    while (*(parallel->q)){ //Remember => \0 is false
+        if(*(parallel->q) == *(parallel->next->q++)){
+            equalsBits(parallel);
         } else {
-            equalsBits(pointer);
+            differentBits(parallel);
         }
-    } else {
-        if ((pointer->q + prim->q) == 1) {
-            differentBits(pointer);
-        } else {
-            equalsBits(pointer);
-        }
+        *parallel->q++;   
     }
 }
 
@@ -138,14 +134,8 @@ int main() {
             printf("Valor Inválido, digite novamente um valor entre 0 e 15\n");
             printf("Insira um novo valor: ");
         }
-
     } while (value != 16);
-    
-    // ======= Fim =======
 
-    /*
-     * Tratamento dessas informações de modo interessante
-     */
     for (p = prim; p->next != NULL; p = p->next) {
         sorting(p);
     }
