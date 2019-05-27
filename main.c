@@ -32,22 +32,22 @@ void insert(char *word){
 
 //This function is called after the sorting
 void equalsBits(TruthTable *pointer){
-    if(pointer->q == '1'){
-        pointer->j = 'X';
-        pointer->k = '0';
+    if(*(pointer->q) == '1'){
+        *(pointer->j) = 'X';
+        *(pointer->k) = '0';
     } else {
-        pointer->j = '0';
-        pointer->k = 'X';
+        *(pointer->j) = '0';
+        *(pointer->k) = 'X';
     }
 }
 //This 2
 void differentBits(TruthTable *pointer){
-    if(pointer->q == '1'){
-        pointer->j = 'X';
-        pointer->k = '1';
+    if(*(pointer->q) == '1'){
+        *(pointer->j) = 'X';
+        *(pointer->k) = '1';
     } else {
-        pointer->j = '1';
-        pointer->k = 'X';
+        *(pointer->j) = '1';
+        *(pointer->k) = 'X';
     }
 }
 
@@ -85,7 +85,7 @@ void showTable(TruthTable *pointer){
 }
 
 //I dont know how, but i assure works so dont change nothing
-char *convertToBinary(int value){
+char *convertionToBinary(int value){
     int c, d, count;
     char *pointer;
    
