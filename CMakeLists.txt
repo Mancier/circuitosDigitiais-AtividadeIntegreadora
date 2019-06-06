@@ -3,4 +3,4 @@ project(CiEmulator C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(CiEmulator main.c src/Validators/validator.c src/Validators/validator.h)
+add_executable(CiEmulator main.c)

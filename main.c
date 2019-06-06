@@ -3,6 +3,7 @@
 #include <string.h>
 
 #define ever ;; //Just for Fun
+#define max 4;
 
 /*
 *   ==>> Remember <<===
@@ -22,32 +23,44 @@ typedef struct truthTable{
 TruthTable *prim= NULL, *p, *q;
 
 void insert(char *word){
+    int count = 0;
+    //Alocando tudo
     p = malloc(sizeof(TruthTable));
+    p->q = malloc(sizeof(char)*5);
+    p->j = malloc(sizeof(char)*5);
+    p->k = malloc(sizeof(char)*5);
+
     !p ? exit(-1) : NULL;
-    p->q = word;
+    while (*word)
+    {
+        int aux = (int) *word;
+        *(p->q+count) =  (aux-48) + '0';
+        word++;
+        count++;
+    }
     p->next = NULL;
     if(prim != NULL) q->next = p; else prim = p; //Performance
     q = p;
 }
 
 //This function is called after the sorting
-void equalsBits(TruthTable *pointer){
+void equalsBits(TruthTable *pointer, int count){
     if(*(pointer->q) == '1'){
-        *(pointer->j) = 'X';
-        *(pointer->k) = '0';
+        *(pointer->j+count) = 'X';
+        *(pointer->k+count) = '0';
     } else {
-        *(pointer->j) = '0';
-        *(pointer->k) = 'X';
+        *(pointer->j+count) = '0';
+        *(pointer->k+count) = 'X';
     }
 }
 //This 2
-void differentBits(TruthTable *pointer){
-    if(*(pointer->q) == '1'){
-        *(pointer->j) = 'X';
-        *(pointer->k) = '1';
+void differentBits(TruthTable *pointer, int count){
+    if(*(pointer->q+count) == '1'){
+        *(pointer->j+count) = 'X';
+        *(pointer->k+count) = '1';
     } else {
-        *(pointer->j) = '1';
-        *(pointer->k) = 'X';
+        *(pointer->j+count) = '1';
+        *(pointer->k+count) = 'X';
     }
 }
 
@@ -58,15 +71,16 @@ void differentBits(TruthTable *pointer){
  */
 
 //Think a better way to resolve this point
-void sorting(TruthTable *parallel){
-     //Runnig in the string
-    while (*(parallel->q)){ //Remember => \0 is false
-        if(*(parallel->q) == *(parallel->next->q++)){
-            equalsBits(parallel);
+void sorting(TruthTable *pointer){
+    int count = 0;
+    while (*(pointer->q)){ //Remember => \0 is false
+        if(*(pointer->q) == *(pointer->next->q++)){
+            equalsBits(pointer, count);
         } else {
-            differentBits(parallel);
+            differentBits(pointer, count);
         }
-        *parallel->q++;   
+        pointer->q++;
+        count++;
     }
 }
 
@@ -77,11 +91,11 @@ void showTable(TruthTable *pointer){
     printf("\tI -> Q || J | K\n");
 //    printf("--------------\n");
     for(pointer = prim; pointer->next != NULL; pointer = pointer->next){
-        printf("\t%d -> %d || %c | %c\n", i+1, pointer->q, pointer->j, pointer->k);
+        printf("\t%d -> %s || %s | %s\n", i+1, pointer->q, pointer->j, pointer->k);
 //        printf("--------------\n");
         i++;
     }
-    printf("\t%d -> %d || %c | %c\n", i+1, pointer->q, pointer->j, pointer->k);
+    printf("\t%d -> %s || %s | %s\n", i+1, pointer->q, pointer->j, pointer->k);
 }
 
 //I dont know how, but i assure works so dont change nothing
@@ -90,7 +104,7 @@ char *convertionToBinary(int value){
     char *pointer;
    
    count = 0;
-   pointer = (char*)malloc(3);
+   pointer = malloc(4);
 
    if (pointer == NULL)
       exit(EXIT_FAILURE);
@@ -99,8 +113,6 @@ char *convertionToBinary(int value){
    {
       d = value >> c;
 
-      printf("Convertion: %d \n", d);
-     
       if (d & 1){
          *(pointer+count) = 1 + '0';
       }
@@ -116,8 +128,6 @@ char *convertionToBinary(int value){
 
 int main() {
     int value = 0;
-    char *wordBinary = malloc(sizeof(char)*4);
-
     /*
      * Coletando os valores de Qn
      */
@@ -127,14 +137,14 @@ int main() {
     do
     {
         scanf("%d", &value);
-        if(!(value > 16 || value < 0)){
+        if(value < 16 && value > 0){
             insert(convertionToBinary(value));
             printf("Insira um novo valor: ");
         } else {
             printf("Valor Inválido, digite novamente um valor entre 0 e 15\n");
             printf("Insira um novo valor: ");
         }
-    } while (value != 16);
+    } while (value != 16 || !(prim));
 
     for (p = prim; p->next != NULL; p = p->next) {
         sorting(p);
@@ -142,5 +152,9 @@ int main() {
     sorting(p);
 
     showTable(prim);
+
+    free(p);
+    free(prim);
+    free(q);
     return 0;
 }
