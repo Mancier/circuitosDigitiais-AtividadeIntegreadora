@@ -3,32 +3,25 @@
 #include <string.h>
 
 #define ever ;; //Just for Fun
-#define max 4;
-
-/*
-*   ==>> Remember <<===
-*    char *point => Return the value
-*    char &pont => Return the memory address
-*    char point => Return all data on that
-*/
+#define max 4
 
 typedef struct truthTable{
     char *j;
     char *k;
     char *q;
-    int count;
+    int valueDecimal;
     struct truthTable *next;
 } TruthTable;
 
 TruthTable *prim= NULL, *p, *q;
 
-void insert(char *word){
+void insert(char *word, int value){
     int count = 0;
-    //Alocando tudo
     p = malloc(sizeof(TruthTable));
-    p->q = malloc(sizeof(char)*5);
-    p->j = malloc(sizeof(char)*5);
-    p->k = malloc(sizeof(char)*5);
+    p->q = malloc(sizeof(char)*4);
+    p->j = malloc(sizeof(char)*4);
+    p->k = malloc(sizeof(char)*4);
+    p->valueDecimal = value;
 
     !p ? exit(-1) : NULL;
     while (*word)
@@ -45,7 +38,7 @@ void insert(char *word){
 
 //This function is called after the sorting
 void equalsBits(TruthTable *pointer, int count){
-    if(*(pointer->q) == '1'){
+    if(*(pointer->q+count) == '1'){
         *(pointer->j+count) = 'X';
         *(pointer->k+count) = '0';
     } else {
@@ -72,30 +65,56 @@ void differentBits(TruthTable *pointer, int count){
 
 //Think a better way to resolve this point
 void sorting(TruthTable *pointer){
-    int count = 0;
-    while (*(pointer->q)){ //Remember => \0 is false
-        if(*(pointer->q) == *(pointer->next->q++)){
-            equalsBits(pointer, count);
-        } else {
-            differentBits(pointer, count);
+    int count = max-1;
+    p = pointer;
+    q = prim;
+
+    if(p->next != NULL){
+        while (count >= 0){
+            (*(p->q+count) == *(p->next->q+count)) ? equalsBits(pointer, count) : differentBits(pointer, count);
+            count--;
         }
-        pointer->q++;
-        count++;
+    } else {
+        while (count >= 0){
+            (*(p->q+count) == *(q->q+count)) ? equalsBits(pointer, count) : differentBits(pointer, count);
+            count--;
+        }
     }
+
+
 }
 
 //This too
-void showTable(TruthTable *pointer){
-    int i = 0;
-    printf("\n======= Resultado =======\n");
-    printf("\tI -> Q || J | K\n");
-//    printf("--------------\n");
+void showTable(){
+    TruthTable *pointer = NULL;
+    int i = 0, count = 0;
+    printf("\n\t\t======= Resultado =======\n");
+    printf("\tI -> Q3 |Q2 |Q1 |Q0 ||J3 |K3 ||J2 |K2 ||J1 |K1 ||J0 |K0\n");
     for(pointer = prim; pointer->next != NULL; pointer = pointer->next){
-        printf("\t%d -> %s || %s | %s\n", i+1, pointer->q, pointer->j, pointer->k);
-//        printf("--------------\n");
-        i++;
+        printf("\t%d -> ", pointer->valueDecimal);
+        while(count < max){
+            printf(" %c ", *(pointer->q+count));
+            (count != max-1) ? printf("|") : NULL;
+            count++;
+        }
+        count = 0;
+        while(count < max){
+            printf("|| %c | %c ", *(pointer->j+count), *(pointer->k+count)); count++;
+        }
+        count = 0;
+        printf("\n");
     }
-    printf("\t%d -> %s || %s | %s\n", i+1, pointer->q, pointer->j, pointer->k);
+    printf("\t%d -> ", pointer->valueDecimal);
+    while(count < max){
+        printf(" %c ", *(pointer->q+count));
+        (count != max-1) ? printf("|") : NULL;
+        count++;
+    }
+    count = 0;
+    while(count < max){
+        printf("|| %c | %c ", *(pointer->j+count), *(pointer->k+count)); count++;
+    }
+    printf("\n");
 }
 
 //I dont know how, but i assure works so dont change nothing
@@ -104,12 +123,12 @@ char *convertionToBinary(int value){
     char *pointer;
    
    count = 0;
-   pointer = malloc(4);
+   pointer = malloc(max);
 
    if (pointer == NULL)
       exit(EXIT_FAILURE);
      
-   for (c = 4 ; c >= 0 ; c--)
+   for (c = 3 ; c >= 0 ; c--)
    {
       d = value >> c;
 
@@ -123,23 +142,31 @@ char *convertionToBinary(int value){
    }
    *(pointer+count) = '\0';
    
-   return  pointer;
+   return pointer;
 }
 
 int main() {
     int value = 0;
-    /*
-     * Coletando os valores de Qn
-     */
+
     printf("==> Para mostrar o mapa, entre o valor correspondente a linha\n");
     printf("Para sair digite: 16\n");
     printf("Linha: ");
     do
     {
         scanf("%d", &value);
-        if(value < 16 && value > 0){
-            insert(convertionToBinary(value));
+        while (p){
+            if(p->valueDecimal == value){
+                value = -1;
+                break;
+            }
+            p = p->next;
+        }
+        if(value < 16 && value >= 0){
+
+            insert(convertionToBinary(value), value);
             printf("Insira um novo valor: ");
+        } else if(value == 16) {
+            printf("Saindo...\n");
         } else {
             printf("Valor Inválido, digite novamente um valor entre 0 e 15\n");
             printf("Insira um novo valor: ");
@@ -151,10 +178,10 @@ int main() {
     }
     sorting(p);
 
-    showTable(prim);
+    showTable();
 
+    //free(q);
     free(p);
     free(prim);
-    free(q);
     return 0;
 }
