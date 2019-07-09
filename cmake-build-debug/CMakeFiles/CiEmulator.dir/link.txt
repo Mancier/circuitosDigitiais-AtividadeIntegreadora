@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/CiEmulator.dir/main.c.o CMakeFiles/CiEmulator.dir/src/Validators/validator.c.o  -o CiEmulator 
